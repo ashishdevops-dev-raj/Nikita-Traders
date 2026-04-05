@@ -1,0 +1,639 @@
+<!-- Skip to content -->
+<a class="skip-to-content" href="#home" (click)="scrollTo('home')">Skip to main content</a>
+
+<!-- ===== PRELOADER ===== -->
+<div class="preloader" [ngClass]="{ loaded: isLoaded() }" role="status" aria-label="Loading">
+  <div class="preloader-inner">
+    <div class="preloader-logo">NT</div>
+    <div class="preloader-bar"><div class="preloader-progress"></div></div>
+  </div>
+</div>
+
+<!-- ===== CURSOR GLOW ===== -->
+<div class="cursor-glow" #cursorGlow></div>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" [ngClass]="{ scrolled: isScrolled() }">
+  <div class="nav-container">
+    <a class="logo" (click)="scrollTo('home')">
+      <span class="logo-icon">NT</span>
+      <div class="logo-text">
+        <span class="logo-name">Nikita Traders</span>
+        <span class="logo-tag">Services Management</span>
+      </div>
+    </a>
+
+    <ul class="nav-links" [ngClass]="{ open: mobileMenuOpen() }" role="navigation" aria-label="Main navigation">
+      <li *ngFor="let link of navLinks">
+        <a [ngClass]="{ active: activeSection() === link.href }" (click)="scrollTo(link.href)" (keydown.enter)="scrollTo(link.href)" tabindex="0" role="button">
+          {{ link.label }}
+        </a>
+      </li>
+      <li class="nav-cta">
+        <a class="btn btn-primary btn-glow" (click)="scrollTo('contact')" (keydown.enter)="scrollTo('contact')" tabindex="0" role="button">
+          <span class="material-symbols-outlined">arrow_forward</span>
+          Get a Quote
+        </a>
+      </li>
+    </ul>
+
+    <button class="mobile-toggle" (click)="toggleMobileMenu()" [attr.aria-label]="mobileMenuOpen() ? 'Close menu' : 'Open menu'" [attr.aria-expanded]="mobileMenuOpen()">
+      <span [ngClass]="{ open: mobileMenuOpen() }"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO SECTION ===== -->
+<section id="home" class="hero">
+  <div class="hero-bg">
+    <div class="hero-gradient"></div>
+    <div class="hero-particles">
+      <div class="particle" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12]"></div>
+    </div>
+    <div class="hero-grid-overlay"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-badge anim" data-delay="200">
+      <span class="badge-dot"></span>
+      ISO Certified &bull; Est. 2023 &bull; Odisha, India
+    </div>
+    <h1 class="hero-title anim" data-delay="400">
+      Driving Business Forward<br>
+      <span class="hero-highlight">with Excellence</span>
+    </h1>
+    <p class="hero-subtitle anim" data-delay="600">
+      India's trusted B2B transport &amp; supply partner. 150+ vehicle fleet,
+      pan-India logistics, and comprehensive supply solutions — all under one roof.
+    </p>
+    <div class="hero-actions anim" data-delay="800">
+      <a class="btn btn-primary btn-glow btn-lg" (click)="scrollTo('services')" (keydown.enter)="scrollTo('services')" tabindex="0" role="button">
+        <span class="material-symbols-outlined">explore</span>
+        Explore Our Services
+      </a>
+      <a class="btn btn-glass btn-lg" (click)="scrollTo('about')" (keydown.enter)="scrollTo('about')" tabindex="0" role="button">
+        <span class="material-symbols-outlined">play_circle</span>
+        Learn More
+      </a>
+    </div>
+    <div class="hero-trust anim" data-delay="1000">
+      <span class="trust-label">Trusted by</span>
+      <div class="trust-logos">
+        <span class="trust-logo" *ngFor="let client of clients.slice(0, 5)">{{ client.name }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="hero-stats anim" data-delay="1200">
+    <div class="stat-card" *ngFor="let stat of stats; let i = index" [attr.data-delay]="1200 + (i * 100)">
+      <div class="stat-icon-wrap">
+        <span class="material-symbols-outlined">{{ stat.icon }}</span>
+      </div>
+      <div class="stat-info">
+        <span class="stat-number">{{ stat.current }}{{ stat.suffix }}</span>
+        <span class="stat-label">{{ stat.label }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator" (click)="scrollTo('about')">
+    <div class="scroll-mouse">
+      <div class="scroll-wheel"></div>
+    </div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
+
+<!-- ===== ABOUT SECTION ===== -->
+<section id="about" class="section about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-left">
+        <span class="section-badge anim">
+          <span class="material-symbols-outlined">info</span>
+          About Us
+        </span>
+        <h2 class="section-title anim" data-delay="100">
+          India's Trusted<br><span class="text-accent">B2B Transport Partner</span>
+        </h2>
+        <p class="section-subtitle anim" data-delay="200">
+          Established in 2023 by the pioneers of the car rental industry, Nikita Traders is an
+          <strong>ISO certified</strong> company based in Odisha, delivering quality services across
+          Corporate, Banks, Media, FMCG, Telecom, and ITES sectors.
+        </p>
+        <p class="about-desc anim" data-delay="300">
+          With a vision to be the undisputed industry leader, we provide cost-effective, safe, and comfortable
+          surface transport solutions. Our fleet of <strong>150+ vehicles</strong> operates round the clock, supervised
+          by trained professionals meeting international HSSE standards.
+        </p>
+
+        <div class="about-highlights anim" data-delay="400">
+          <div class="highlight-item">
+            <span class="material-symbols-outlined">verified</span>
+            <div>
+              <strong>ISO Certified</strong>
+              <span>International Quality Standards</span>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <span class="material-symbols-outlined">badge</span>
+            <div>
+              <strong>MSME Registered</strong>
+              <span>UDYAM-OD-19-0091968</span>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <span class="material-symbols-outlined">receipt_long</span>
+            <div>
+              <strong>GST Compliant</strong>
+              <span>21AIQPK9098N1ZD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-right">
+        <div class="about-card anim" data-delay="200" *ngFor="let card of [
+          { icon: 'visibility', title: 'Our Vision', desc: 'To be recognized as the best one-stop transport solution — offering adequate, prompt, professional, and time-bound logistics services across India.', accent: '#667eea' },
+          { icon: 'rocket_launch', title: 'Our Mission', desc: 'To lead corporate transport services using progressive technology, efficient manpower, well-maintained fleet, and time-honoured deliverables.', accent: '#f5576c' },
+          { icon: 'favorite', title: 'Our Values', desc: 'Quality experiences, cost-effective solutions, transparent ethics, and smiling people ensuring maximum satisfaction at every touchpoint.', accent: '#43e97b' }
+        ]">
+          <div class="card-accent" [style.background]="card.accent"></div>
+          <div class="card-icon">
+            <span class="material-symbols-outlined">{{ card.icon }}</span>
+          </div>
+          <div class="card-content">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES SECTION ===== -->
+<section id="services" class="section services-section">
+  <div class="container">
+    <div class="section-header anim">
+      <span class="section-badge">
+        <span class="material-symbols-outlined">miscellaneous_services</span>
+        Our Services
+      </span>
+      <h2 class="section-title">What We <span class="text-accent">Offer</span></h2>
+      <p class="section-subtitle">
+        End-to-end transport &amp; supply solutions tailored for businesses across India.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card anim" *ngFor="let service of services; let i = index" [attr.data-delay]="i * 150">
+        <div class="service-gradient-bar" [style.background]="service.gradient"></div>
+        <div class="service-number">0{{ i + 1 }}</div>
+        <div class="service-icon" [style.background]="service.gradient">
+          <span class="material-symbols-outlined">{{ service.icon }}</span>
+        </div>
+        <h3>{{ service.title }}</h3>
+        <p>{{ service.description }}</p>
+        <ul class="service-features">
+          <li *ngFor="let feature of service.features">
+            <span class="material-symbols-outlined">check</span>
+            {{ feature }}
+          </li>
+        </ul>
+        <a class="service-link" (click)="scrollTo('contact')" (keydown.enter)="scrollTo('contact')" tabindex="0" role="button">
+          Get Quote <span class="material-symbols-outlined">east</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FLEET SECTION ===== -->
+<section id="fleet" class="section fleet-section">
+  <div class="container">
+    <div class="fleet-top">
+      <div class="fleet-header anim">
+        <span class="section-badge">
+          <span class="material-symbols-outlined">directions_car</span>
+          Our Fleet
+        </span>
+        <h2 class="section-title">150+ Vehicles <span class="text-accent">Ready to Roll</span></h2>
+        <p class="section-subtitle">
+          Modern, well-maintained fleet with real-time GPS, safety equipment, and professionally trained chauffeurs.
+        </p>
+      </div>
+
+      <div class="fleet-count-cards anim" data-delay="200">
+        <div class="fleet-count-card" *ngFor="let fleet of fleetData">
+          <div class="fcc-icon" [style.background]="fleet.gradient">
+            <span class="material-symbols-outlined">{{ fleet.icon }}</span>
+          </div>
+          <div class="fcc-info">
+            <span class="fcc-number">{{ fleet.count }}+</span>
+            <span class="fcc-type">{{ fleet.type }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fleet Features -->
+    <div class="fleet-features-grid">
+      <div class="fleet-feature anim" *ngFor="let feature of fleetFeatures; let i = index" [attr.data-delay]="i * 100">
+        <div class="ff-icon">
+          <span class="material-symbols-outlined">{{ feature.icon }}</span>
+        </div>
+        <h4>{{ feature.title }}</h4>
+        <p>{{ feature.description }}</p>
+      </div>
+    </div>
+
+    <!-- Accessories -->
+    <div class="accessories-section anim" data-delay="200">
+      <h3>Every Vehicle Equipped With</h3>
+      <div class="accessories-grid">
+        <div class="acc-item" *ngFor="let acc of accessories">
+          <span class="material-symbols-outlined">{{ acc.icon }}</span>
+          <span>{{ acc.name }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TIMELINE SECTION ===== -->
+<section class="section timeline-section">
+  <div class="container">
+    <div class="section-header anim">
+      <span class="section-badge">
+        <span class="material-symbols-outlined">timeline</span>
+        Our Journey
+      </span>
+      <h2 class="section-title">Building <span class="text-accent">Excellence</span></h2>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-track"></div>
+      <div class="timeline-item anim" *ngFor="let item of timeline; let i = index; let even = even"
+        [ngClass]="{ even: even }" [attr.data-delay]="i * 200">
+        <div class="timeline-marker">
+          <div class="tm-icon">
+            <span class="material-symbols-outlined">{{ item.icon }}</span>
+          </div>
+          <span class="tm-year">{{ item.year }}</span>
+        </div>
+        <div class="timeline-content">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CLIENTS SECTION ===== -->
+<section id="clients" class="section clients-section">
+  <div class="container">
+    <div class="section-header anim">
+      <span class="section-badge">
+        <span class="material-symbols-outlined">handshake</span>
+        Our Partners
+      </span>
+      <h2 class="section-title">Trusted By <span class="text-accent">Industry Leaders</span></h2>
+      <p class="section-subtitle">
+        Authorized vendor partnerships with some of India's most respected organizations.
+      </p>
+    </div>
+
+    <div class="clients-grid">
+      <div class="client-card anim" *ngFor="let client of clients; let i = index" [attr.data-delay]="i * 100">
+        <div class="client-avatar" [style.background]="client.color">
+          {{ client.name.charAt(0) }}
+        </div>
+        <h4>{{ client.name }}</h4>
+        <span class="client-category">{{ client.category }}</span>
+      </div>
+    </div>
+
+    <!-- Testimonial -->
+    <div class="testimonial-card anim" data-delay="200">
+      <div class="tc-accent"></div>
+      <div class="tc-content">
+        <span class="material-symbols-outlined tc-quote">format_quote</span>
+        <p>"Reliable, efficient, and professional — Nikita Traders has been our go-to transport partner.
+          Their fleet management and support team are truly world-class."</p>
+        <div class="tc-author">
+          <div class="tc-author-avatar">C</div>
+          <div>
+            <strong>Corporate Client</strong>
+            <span>Transport &amp; Logistics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY US SECTION ===== -->
+<section id="why-us" class="section why-section">
+  <div class="container">
+    <div class="section-header anim">
+      <span class="section-badge">
+        <span class="material-symbols-outlined">emoji_events</span>
+        Why Choose Us
+      </span>
+      <h2 class="section-title">The Nikita <span class="text-accent">Advantage</span></h2>
+      <p class="section-subtitle">
+        What sets us apart in the competitive transport and logistics industry.
+      </p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card anim" *ngFor="let reason of whyUsReasons; let i = index" [attr.data-delay]="i * 100">
+        <div class="why-number">{{ reason.number }}</div>
+        <div class="why-icon">
+          <span class="material-symbols-outlined">{{ reason.icon }}</span>
+        </div>
+        <h3>{{ reason.title }}</h3>
+        <p>{{ reason.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA BANNER ===== -->
+<section class="cta-banner">
+  <div class="cta-bg">
+    <div class="cta-gradient"></div>
+    <div class="cta-particles">
+      <div class="cta-particle" *ngFor="let i of [1,2,3,4,5,6]"></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="cta-content anim">
+      <h2>Ready to Transform Your Business Logistics?</h2>
+      <p>Join India's most trusted companies who rely on Nikita Traders for their transport &amp; supply needs.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary btn-glow btn-lg" (click)="scrollTo('contact')" (keydown.enter)="scrollTo('contact')" tabindex="0" role="button">
+          <span class="material-symbols-outlined">phone_in_talk</span>
+          Get Started Today
+        </a>
+        <a class="btn btn-glass btn-lg" href="tel:+917735479750">
+          <span class="material-symbols-outlined">call</span>
+          Call +91-7735479750
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ORG STRUCTURE ===== -->
+<section class="section org-section">
+  <div class="container">
+    <div class="section-header anim">
+      <span class="section-badge">
+        <span class="material-symbols-outlined">account_tree</span>
+        Our Team
+      </span>
+      <h2 class="section-title">Professional <span class="text-accent">Organization</span></h2>
+      <p class="section-subtitle">
+        A dedicated team of experienced professionals ensuring exceptional service delivery at every level.
+      </p>
+    </div>
+
+    <div class="org-chart anim" data-delay="200">
+      <div class="org-level org-top">
+        <div class="org-node org-director">
+          <span class="material-symbols-outlined">person</span>
+          <strong>Director</strong>
+          <span class="org-role">Leadership</span>
+        </div>
+      </div>
+      <div class="org-connector"></div>
+      <div class="org-level org-gms">
+        <div class="org-node" *ngFor="let gm of [
+          {icon: 'engineering', title: 'GM Operation', role: 'Operations Head'},
+          {icon: 'trending_up', title: 'GM Sales', role: 'Business Development'},
+          {icon: 'gavel', title: 'GM Compliance', role: 'Regulatory Affairs'},
+          {icon: 'account_balance', title: 'MIS & Finance', role: 'Financial Operations'}
+        ]">
+          <span class="material-symbols-outlined">{{ gm.icon }}</span>
+          <strong>{{ gm.title }}</strong>
+          <span class="org-role">{{ gm.role }}</span>
+        </div>
+      </div>
+      <div class="org-connector"></div>
+      <div class="org-level org-staff">
+        <div class="org-node org-staff-node" *ngFor="let staff of [
+          {icon: 'manage_accounts', title: 'Managers', count: '15+'},
+          {icon: 'supervisor_account', title: 'Supervisors', count: '30+'},
+          {icon: 'directions_car', title: 'Drivers', count: '200+'},
+          {icon: 'computer', title: 'MIS Executives', count: '10+'}
+        ]">
+          <span class="material-symbols-outlined">{{ staff.icon }}</span>
+          <strong>{{ staff.title }}</strong>
+          <span class="org-count">{{ staff.count }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT SECTION ===== -->
+<section id="contact" class="section contact-section">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <span class="section-badge anim">
+          <span class="material-symbols-outlined">mail</span>
+          Get In Touch
+        </span>
+        <h2 class="section-title anim" data-delay="100">Let's Build<br><span class="text-accent">Something Great</span></h2>
+        <p class="section-subtitle anim" data-delay="200">
+          Ready to experience premium transport and supply services? Let us create a customized solution for your business.
+        </p>
+
+        <div class="contact-details anim" data-delay="300">
+          <div class="contact-item">
+            <div class="ci-icon">
+              <span class="material-symbols-outlined">call</span>
+            </div>
+            <div class="ci-info">
+              <span class="ci-label">Phone</span>
+              <a href="tel:+917735479750">+91-7735479750</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon">
+              <span class="material-symbols-outlined">email</span>
+            </div>
+            <div class="ci-info">
+              <span class="ci-label">Email</span>
+              <a href="mailto:Bharatkumargupta736&#64;gmail.com">Bharatkumargupta736&#64;gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon">
+              <span class="material-symbols-outlined">location_on</span>
+            </div>
+            <div class="ci-info">
+              <span class="ci-label">Head Office</span>
+              <span>Paikaraypur Jatni, Near NISER, Khordha-003, Odisha</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-map anim" data-delay="400">
+          <div class="map-placeholder">
+            <span class="material-symbols-outlined">pin_drop</span>
+            <span>Operations across Odisha, Bihar &amp; Jharkhand</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-wrapper anim" data-delay="200">
+        <form class="contact-form" (ngSubmit)="submitForm()">
+          <h3>Request a Quote</h3>
+          <p class="form-subtitle">Fill in your details and we'll get back within 24 hours.</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name <span class="required">*</span></label>
+              <input type="text" id="name" name="name" [(ngModel)]="contactForm.name" placeholder="Your full name" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="email">Email <span class="required">*</span></label>
+              <input type="email" id="email" name="email" [(ngModel)]="contactForm.email" placeholder="you&#64;company.com" required autocomplete="email">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone Number <span class="required">*</span></label>
+              <input type="tel" id="phone" name="phone" [(ngModel)]="contactForm.phone" placeholder="+91 XXXXX XXXXX" required autocomplete="tel">
+            </div>
+            <div class="form-group">
+              <label for="service">Service Required</label>
+              <select id="service" name="service" [(ngModel)]="contactForm.service">
+                <option value="">Select a service</option>
+                <option value="Cab Rental Services">Cab Rental Services</option>
+                <option value="Chartered Bus Services">Chartered Bus Services</option>
+                <option value="B2B Supply Solutions">B2B Supply Solutions</option>
+                <option value="Pan-India Logistics">Pan-India Logistics</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message">Message <span class="required">*</span></label>
+            <textarea id="message" name="message" [(ngModel)]="contactForm.message" rows="4" placeholder="Tell us about your requirements..." required></textarea>
+          </div>
+
+          <!-- Form status messages -->
+          <div class="form-alert form-alert-success" *ngIf="formStatus === 'success'">
+            <span class="material-symbols-outlined">check_circle</span>
+            {{ formMessage }}
+          </div>
+          <div class="form-alert form-alert-error" *ngIf="formStatus === 'error'">
+            <span class="material-symbols-outlined">error</span>
+            {{ formMessage }}
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-glow full-width" [disabled]="formStatus === 'sending'">
+            <span class="material-symbols-outlined" *ngIf="formStatus !== 'sending'">send</span>
+            <span class="material-symbols-outlined spin" *ngIf="formStatus === 'sending'">progress_activity</span>
+            {{ formStatus === 'sending' ? 'Sending...' : 'Send Inquiry' }}
+          </button>
+          <p class="form-note">
+            <span class="material-symbols-outlined">lock</span>
+            Your information is secure and will never be shared.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-wave">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0,60 C360,120 1080,0 1440,60 L1440,120 L0,120 Z" fill="currentColor"/>
+    </svg>
+  </div>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <span class="logo-icon">NT</span>
+          <div class="logo-text">
+            <span class="logo-name">Nikita Traders</span>
+            <span class="logo-tag">Services Management</span>
+          </div>
+        </div>
+        <p>One of India's leading B2B transport &amp; supply service providers. ISO certified, MSME registered, and committed to excellence in every journey.</p>
+        <div class="footer-social">
+          <a class="social-btn" href="tel:+917735479750" aria-label="Call us"><span class="material-symbols-outlined">call</span></a>
+          <a class="social-btn" href="mailto:Bharatkumargupta736&#64;gmail.com" aria-label="Email us"><span class="material-symbols-outlined">email</span></a>
+          <a class="social-btn" (click)="scrollTo('contact')" (keydown.enter)="scrollTo('contact')" tabindex="0" role="button" aria-label="Contact form"><span class="material-symbols-outlined">chat</span></a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li *ngFor="let link of navLinks">
+            <a (click)="scrollTo(link.href)" (keydown.enter)="scrollTo(link.href)" tabindex="0" role="button">
+              <span class="material-symbols-outlined">chevron_right</span>
+              {{ link.label }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-services">
+        <h4>Our Services</h4>
+        <ul>
+          <li><a (click)="scrollTo('services')" (keydown.enter)="scrollTo('services')" tabindex="0" role="button"><span class="material-symbols-outlined">chevron_right</span> Cab Rental</a></li>
+          <li><a (click)="scrollTo('services')" (keydown.enter)="scrollTo('services')" tabindex="0" role="button"><span class="material-symbols-outlined">chevron_right</span> Chartered Buses</a></li>
+          <li><a (click)="scrollTo('services')" (keydown.enter)="scrollTo('services')" tabindex="0" role="button"><span class="material-symbols-outlined">chevron_right</span> B2B Supplies</a></li>
+          <li><a (click)="scrollTo('services')" (keydown.enter)="scrollTo('services')" tabindex="0" role="button"><span class="material-symbols-outlined">chevron_right</span> Pan-India Logistics</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Contact Info</h4>
+        <ul>
+          <li>
+            <span class="material-symbols-outlined">call</span>
+            <a href="tel:+917735479750">+91-7735479750</a>
+          </li>
+          <li>
+            <span class="material-symbols-outlined">email</span>
+            <a href="mailto:Bharatkumargupta736&#64;gmail.com">Bharatkumargupta736&#64;gmail.com</a>
+          </li>
+          <li>
+            <span class="material-symbols-outlined">location_on</span>
+            <span>Khordha, Odisha, India</span>
+          </li>
+          <li>
+            <span class="material-symbols-outlined">schedule</span>
+            <span>24/7 Available</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2023&ndash;{{ currentYear }} Nikita Traders. All rights reserved.</p>
+      <div class="footer-legal">
+        <span>GST: 21AIQPK9098N1ZD</span>
+        <span>MSME: UDYAM-OD-19-0091968</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== BACK TO TOP ===== -->
+<button class="back-to-top" [ngClass]="{ visible: showBackToTop() }" (click)="scrollToTop()">
+  <span class="material-symbols-outlined">keyboard_arrow_up</span>
+</button>
