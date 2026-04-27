@@ -94,6 +94,14 @@
             }
           },
           "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "buildTarget": "nikita-traders-portfolio:build:development",
+            "watch": false
+          }
         }
       }
     }

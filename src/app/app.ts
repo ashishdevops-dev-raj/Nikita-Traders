@@ -2,10 +2,25 @@ import { Component, signal, HostListener, AfterViewInit, OnDestroy, PLATFORM_ID,
 import { isPlatformBrowser, NgFor, NgClass, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import emailjs from '@emailjs/browser';
+import { environment } from '../environments/environment';
+import { LeadershipSectionComponent } from './components/leadership-section/leadership-section.component';
+import {
+  ABOUT_CARDS,
+  ACCESSORIES,
+  CLIENTS,
+  FLEET_DATA,
+  FLEET_FEATURES,
+  NAV_LINKS,
+  SERVICES,
+  STATS,
+  TIMELINE,
+  WHY_US_REASONS
+} from './data/site-content';
+import { StatMetric } from './models/site.models';
 
 @Component({
   selector: 'app-root',
-  imports: [NgFor, NgClass, NgIf, FormsModule],
+  imports: [NgFor, NgClass, NgIf, FormsModule, LeadershipSectionComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -19,6 +34,11 @@ export class App implements AfterViewInit, OnDestroy {
   private countersAnimated = false;
   private scrollObserver?: IntersectionObserver;
   private counterObserver?: IntersectionObserver;
+  private counterTimers: ReturnType<typeof setInterval>[] = [];
+  private scrollTicking = false;
+  private mouseTicking = false;
+  private lastMouseX = 0;
+  private lastMouseY = 0;
 
   @ViewChild('cursorGlow', { static: false }) cursorGlow?: ElementRef;
 
@@ -28,118 +48,31 @@ export class App implements AfterViewInit, OnDestroy {
     email: '',
     phone: '',
     service: '',
-    message: ''
+    message: '',
+    website: ''
   };
   formStatus: 'idle' | 'sending' | 'success' | 'error' = 'idle';
   formMessage = '';
+  private lastSubmitAt = 0;
+  private readonly SUBMIT_COOLDOWN_MS = 30_000;
 
-  // EmailJS configuration — REPLACE THESE with your actual IDs from https://www.emailjs.com/
-  private readonly EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
-  private readonly EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-  private readonly EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+  // EmailJS configuration from environment
+  private readonly EMAILJS_SERVICE_ID = environment.emailjs.serviceId;
+  private readonly EMAILJS_TEMPLATE_ID = environment.emailjs.templateId;
+  private readonly EMAILJS_PUBLIC_KEY = environment.emailjs.publicKey;
 
   currentYear = new Date().getFullYear();
 
-  navLinks = [
-    { label: 'Home', href: 'home' },
-    { label: 'About', href: 'about' },
-    { label: 'Services', href: 'services' },
-    { label: 'Fleet', href: 'fleet' },
-    { label: 'Clients', href: 'clients' },
-    { label: 'Why Us', href: 'why-us' },
-    { label: 'Contact', href: 'contact' }
-  ];
-
-  stats = [
-    { value: 150, suffix: '+', label: 'Fleet Vehicles', icon: 'directions_car', current: 0 },
-    { value: 12, suffix: '+', label: 'Office Locations', icon: 'location_on', current: 0 },
-    { value: 3, suffix: '+', label: 'States Covered', icon: 'map', current: 0 },
-    { value: 300, suffix: '+', label: 'Professional Staff', icon: 'groups', current: 0 }
-  ];
-
-  services = [
-    {
-      icon: 'local_taxi',
-      title: 'Cab Rental Services',
-      description: 'Premium cab services including Sedans, SUVs, and Hatchbacks for corporate and individual travel needs with 24/7 availability.',
-      features: ['Monthly Rentals', 'On-Call Services', '24/7 Availability'],
-      gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-    },
-    {
-      icon: 'airport_shuttle',
-      title: 'Chartered Bus Services',
-      description: 'Winger, Traveller, and Starbus options for corporate events, employee transport, and group travel with complete safety.',
-      features: ['Winger & Traveller', 'Starbus Fleet', 'Corporate Events'],
-      gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
-    },
-    {
-      icon: 'inventory_2',
-      title: 'B2B Supply Solutions',
-      description: 'Comprehensive supply services including groceries, beverages, wafers, and stationery for businesses across India.',
-      features: ['Groceries & Beverages', 'Stationery Supplies', 'Timely Delivery'],
-      gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
-    },
-    {
-      icon: 'local_shipping',
-      title: 'Pan-India Logistics',
-      description: 'Efficient delivery network ensuring timely deliveries and seamless transport across diverse client locations nationwide.',
-      features: ['Nationwide Delivery', 'Route Optimization', 'Real-time Tracking'],
-      gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
-    }
-  ];
-
-  fleetData = [
-    { type: 'Sedan Cabs', count: 70, icon: 'directions_car', gradient: 'linear-gradient(135deg, #0f2b46, #1a4a73)' },
-    { type: 'SUV Vehicles', count: 60, icon: 'airport_shuttle', gradient: 'linear-gradient(135deg, #1a3d5c, #2a6496)' },
-    { type: 'Hatchbacks', count: 20, icon: 'drive_eta', gradient: 'linear-gradient(135deg, #d4a853, #e8c875)' }
-  ];
-
-  fleetFeatures = [
-    { icon: 'gps_fixed', title: 'Real-time GPS Tracking', description: 'Live tracking & communication system for all vehicles in the fleet' },
-    { icon: 'build', title: 'Authorized Maintenance', description: 'Monthly checks at authorized workshops with detailed condition reports' },
-    { icon: 'verified_user', title: 'Full Safety Kit', description: 'Fire extinguisher, first-aid kit, torch, umbrella, safety manuals' },
-    { icon: 'speed', title: 'Speed Monitoring', description: 'Speed-limit trackers & patrolling staff for surprise inspections' },
-    { icon: 'badge', title: 'Verified Chauffeurs', description: 'Background checked through reputed agency with photo & document records' },
-    { icon: 'medical_services', title: 'Medical Checkups', description: 'Half-yearly medical including physical exam, eye test & blood test' }
-  ];
-
-  clients = [
-    { name: 'Coca Cola', category: 'Beverage Supplier', color: '#e31937' },
-    { name: 'Wipro', category: 'IT Partnership', color: '#44187d' },
-    { name: 'Airtel', category: 'Telecom Provider', color: '#ed1c24' },
-    { name: 'WHO', category: 'Health Services', color: '#009edb' },
-    { name: 'WTI Pvt Ltd', category: 'Transport Partner', color: '#2d5f2d' },
-    { name: 'DEPL', category: 'Enterprise', color: '#1a3d5c' },
-    { name: 'Solasta', category: 'Enterprise', color: '#8b5cf6' },
-    { name: 'ACME Services', category: 'Service Provider', color: '#ea580c' }
-  ];
-
-  whyUsReasons = [
-    { icon: 'shield', title: 'ISO Certified', description: 'Quality processes meeting international HSSE standards ensuring top-tier service delivery.', number: '01' },
-    { icon: 'support_agent', title: '24/7 Helpdesk', description: 'Dedicated helpdesk with live tracking and real-time assistance for seamless operations.', number: '02' },
-    { icon: 'analytics', title: 'Advanced MIS', description: 'Complete MIS generation — No Show, OTD & OTA reports, invoicing, and monthly analytics.', number: '03' },
-    { icon: 'groups', title: '300+ Professionals', description: 'Trained managers, supervisors & chauffeurs with quarterly training and professional development.', number: '04' },
-    { icon: 'eco', title: 'Sustainability First', description: 'Eco-friendly fleet options, responsible sourcing, and active community engagement initiatives.', number: '05' },
-    { icon: 'workspace_premium', title: 'Best Value', description: 'Transparent pricing, ethical partnerships, and the best value for every rupee spent on our services.', number: '06' }
-  ];
-
-  timeline = [
-    { year: '2023', title: 'Company Established', description: 'Nikita Traders founded in Odisha with the vision of becoming India\'s top transport partner.', icon: 'flag' },
-    { year: '2024', title: 'Fleet Expansion', description: 'Grew to 150+ vehicles and expanded operations to Bihar & Jharkhand markets.', icon: 'trending_up' },
-    { year: '2025', title: '24/7 Operations', description: 'Launched round-the-clock support, live GPS tracking, and mobile application for clients.', icon: 'rocket_launch' },
-    { year: '2026', title: 'Pan-India Expansion', description: 'Expanding nationwide with new supplier partnerships and comprehensive B2B supply services across India.', icon: 'public' }
-  ];
-
-  accessories = [
-    { icon: 'local_fire_department', name: 'Fire Extinguisher' },
-    { icon: 'build', name: 'Toolkit' },
-    { icon: 'umbrella', name: 'Umbrella' },
-    { icon: 'flashlight_on', name: 'Torch' },
-    { icon: 'menu_book', name: 'Safety Manual' },
-    { icon: 'medical_services', name: 'First-Aid Kit' },
-    { icon: 'phone', name: 'Emergency Numbers' },
-    { icon: 'speed', name: 'Speed Tracker' }
-  ];
+  navLinks = NAV_LINKS;
+  stats: StatMetric[] = STATS.map((stat) => ({ ...stat, current: 0 }));
+  aboutCards = ABOUT_CARDS;
+  services = SERVICES;
+  fleetData = FLEET_DATA;
+  fleetFeatures = FLEET_FEATURES;
+  clients = CLIENTS;
+  whyUsReasons = WHY_US_REASONS;
+  timeline = TIMELINE;
+  accessories = ACCESSORIES;
 
   constructor(@Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
@@ -156,26 +89,46 @@ export class App implements AfterViewInit, OnDestroy {
   @HostListener('window:scroll')
   onScroll() {
     if (!this.isBrowser) return;
-    const scrollY = window.scrollY;
-    this.isScrolled.set(scrollY > 50);
-    this.showBackToTop.set(scrollY > 600);
+    if (this.scrollTicking) return;
+    this.scrollTicking = true;
 
-    const sections = [...this.navLinks.map(l => l.href)].reverse();
-    for (const id of sections) {
-      const el = document.getElementById(id);
-      if (el && el.getBoundingClientRect().top <= 150) {
-        this.activeSection.set(id);
-        break;
+    requestAnimationFrame(() => {
+      const scrollY = window.scrollY;
+      this.isScrolled.set(scrollY > 50);
+      this.showBackToTop.set(scrollY > 600);
+
+      const sections = [...this.navLinks.map(l => l.href)].reverse();
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 150) {
+          this.activeSection.set(id);
+          break;
+        }
       }
-    }
+
+      this.scrollTicking = false;
+    });
   }
 
   @HostListener('window:mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
     if (!this.isBrowser || !this.cursorGlow) return;
-    const el = this.cursorGlow.nativeElement;
-    el.style.left = event.clientX + 'px';
-    el.style.top = event.clientY + 'px';
+    this.lastMouseX = event.clientX;
+    this.lastMouseY = event.clientY;
+
+    if (this.mouseTicking) return;
+    this.mouseTicking = true;
+
+    requestAnimationFrame(() => {
+      const el = this.cursorGlow?.nativeElement;
+      if (!el) {
+        this.mouseTicking = false;
+        return;
+      }
+      el.style.left = this.lastMouseX + 'px';
+      el.style.top = this.lastMouseY + 'px';
+      this.mouseTicking = false;
+    });
   }
 
   scrollTo(sectionId: string) {
@@ -204,6 +157,24 @@ export class App implements AfterViewInit, OnDestroy {
   }
 
   async submitForm() {
+    if (!this.EMAILJS_SERVICE_ID || !this.EMAILJS_TEMPLATE_ID || !this.EMAILJS_PUBLIC_KEY) {
+      this.formStatus = 'error';
+      this.formMessage = 'Contact form is temporarily unavailable. Please call +91-7735479750.';
+      return;
+    }
+
+    // Honeypot field: bots often fill hidden inputs.
+    if (this.contactForm.website.trim()) {
+      return;
+    }
+
+    const now = Date.now();
+    if (now - this.lastSubmitAt < this.SUBMIT_COOLDOWN_MS) {
+      this.formStatus = 'error';
+      this.formMessage = 'Please wait a few seconds before sending another inquiry.';
+      return;
+    }
+
     if (!this.contactForm.name || !this.contactForm.email || !this.contactForm.phone || !this.contactForm.message) {
       this.formStatus = 'error';
       this.formMessage = 'Please fill in all required fields.';
@@ -229,14 +200,16 @@ export class App implements AfterViewInit, OnDestroy {
           from_email: this.contactForm.email,
           phone: this.contactForm.phone,
           service: this.contactForm.service || 'Not specified',
-          message: this.contactForm.message
+          message: this.contactForm.message,
+          website: this.contactForm.website
         },
         this.EMAILJS_PUBLIC_KEY
       );
 
       this.formStatus = 'success';
       this.formMessage = 'Thank you! Your inquiry has been sent successfully. We\'ll get back to you within 24 hours.';
-      this.contactForm = { name: '', email: '', phone: '', service: '', message: '' };
+      this.contactForm = { name: '', email: '', phone: '', service: '', message: '', website: '' };
+      this.lastSubmitAt = now;
     } catch {
       this.formStatus = 'error';
       this.formMessage = 'Something went wrong. Please try again or contact us directly at +91-7735479750.';
@@ -246,6 +219,7 @@ export class App implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.scrollObserver?.disconnect();
     this.counterObserver?.disconnect();
+    this.counterTimers.forEach(timer => clearInterval(timer));
   }
 
   private animateCounters() {
@@ -266,6 +240,7 @@ export class App implements AfterViewInit, OnDestroy {
           stat.current = Math.floor(current);
         }
       }, duration / steps);
+      this.counterTimers.push(timer);
     });
   }
 
@@ -293,7 +268,7 @@ export class App implements AfterViewInit, OnDestroy {
             const delay = el.dataset['delay'] || '0';
             setTimeout(() => {
               el.classList.add('visible');
-            }, parseInt(delay));
+            }, parseInt(delay, 10));
           }
         });
       },

@@ -1,0 +1,69 @@
+<!-- ===== ORG STRUCTURE ===== -->
+<section class="section org-section">
+  <div class="container">
+    <div class="section-header anim">
+      <span class="section-badge">
+        <span class="material-symbols-outlined">account_tree</span>
+        Our Team
+      </span>
+      <h2 class="section-title">Professional <span class="text-accent">Organization</span></h2>
+      <p class="section-subtitle">
+        A focused leadership structure that keeps operations efficient, service quality consistent, and client commitments on track.
+      </p>
+    </div>
+
+    <div class="org-metrics anim" data-delay="120">
+      <div class="org-metric">
+        <span class="material-symbols-outlined">business_center</span>
+        <div>
+          <strong>Leadership Driven</strong>
+          <span>Direct decision making and accountability</span>
+        </div>
+      </div>
+      <div class="org-metric">
+        <span class="material-symbols-outlined">settings_suggest</span>
+        <div>
+          <strong>Execution Focused</strong>
+          <span>Operations and delivery managed by experts</span>
+        </div>
+      </div>
+      <div class="org-metric">
+        <span class="material-symbols-outlined">handshake</span>
+        <div>
+          <strong>Client First</strong>
+          <span>Long-term partnerships built on reliability</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="leadership-spotlight anim" data-delay="150">
+      <div class="leadership-copy">
+        <h3>{{ leadershipProfile.name }}</h3>
+        <span class="leadership-role">{{ leadershipProfile.role }}</span>
+        <p>{{ leadershipProfile.summary }}</p>
+      </div>
+      <div class="leadership-image-wrap">
+        <img [src]="leadershipProfile.image" [alt]="leadershipProfile.imageAlt">
+      </div>
+    </div>
+
+    <div class="org-chart anim" data-delay="220">
+      <div class="org-level org-top">
+        <div class="org-node org-director">
+          <span class="material-symbols-outlined">person</span>
+          <strong>{{ leadershipProfile.name }}</strong>
+          <span class="org-role">{{ leadershipProfile.role }}</span>
+        </div>
+      </div>
+      <div class="org-connector"></div>
+      <div class="org-level org-gms">
+        <div class="org-node" *ngFor="let gm of organizationLeads">
+          <span class="material-symbols-outlined">{{ gm.icon }}</span>
+          <strong>{{ gm.title }}</strong>
+          <span class="org-role">{{ gm.role }}</span>
+          <p class="org-focus">{{ gm.focus }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

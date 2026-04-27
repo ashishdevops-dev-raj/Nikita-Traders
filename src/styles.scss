@@ -30,6 +30,8 @@
   --radius-lg: 20px;
   --radius-xl: 28px;
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  --glass-border: rgba(255, 255, 255, 0.14);
 }
 
 *, *::before, *::after {
@@ -51,6 +53,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 // Material Symbols configuration
@@ -169,6 +172,7 @@ img {
   border: none;
   font-family: 'Inter', sans-serif;
   letter-spacing: 0.3px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 
   &-primary {
     background: var(--accent);
@@ -203,6 +207,15 @@ img {
       box-shadow: var(--shadow-lg);
     }
   }
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(212, 168, 83, 0.55);
+  outline-offset: 2px;
 }
 
 // Animations
@@ -263,11 +276,21 @@ img {
 .animate-on-scroll {
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  filter: blur(6px);
+  transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
 
   &.visible {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }
 

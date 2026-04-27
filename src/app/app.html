@@ -16,7 +16,9 @@
 <nav class="navbar" [ngClass]="{ scrolled: isScrolled() }">
   <div class="nav-container">
     <a class="logo" (click)="scrollTo('home')">
-      <span class="logo-icon">NT</span>
+      <span class="logo-icon">
+        <img src="nikita-logo.png" alt="Nikita Traders logo">
+      </span>
       <div class="logo-text">
         <span class="logo-name">Nikita Traders</span>
         <span class="logo-tag">Services Management</span>
@@ -25,15 +27,9 @@
 
     <ul class="nav-links" [ngClass]="{ open: mobileMenuOpen() }" role="navigation" aria-label="Main navigation">
       <li *ngFor="let link of navLinks">
-        <a [ngClass]="{ active: activeSection() === link.href }" (click)="scrollTo(link.href)" (keydown.enter)="scrollTo(link.href)" tabindex="0" role="button">
+        <button type="button" class="nav-link-btn" [ngClass]="{ active: activeSection() === link.href }" (click)="scrollTo(link.href)">
           {{ link.label }}
-        </a>
-      </li>
-      <li class="nav-cta">
-        <a class="btn btn-primary btn-glow" (click)="scrollTo('contact')" (keydown.enter)="scrollTo('contact')" tabindex="0" role="button">
-          <span class="material-symbols-outlined">arrow_forward</span>
-          Get a Quote
-        </a>
+        </button>
       </li>
     </ul>
 
@@ -56,7 +52,7 @@
   <div class="hero-content">
     <div class="hero-badge anim" data-delay="200">
       <span class="badge-dot"></span>
-      ISO Certified &bull; Est. 2023 &bull; Odisha, India
+      Since 2009 &bull; Pan India Operations &bull; Odisha, India
     </div>
     <h1 class="hero-title anim" data-delay="400">
       Driving Business Forward<br>
@@ -67,14 +63,14 @@
       pan-India logistics, and comprehensive supply solutions — all under one roof.
     </p>
     <div class="hero-actions anim" data-delay="800">
-      <a class="btn btn-primary btn-glow btn-lg" (click)="scrollTo('services')" (keydown.enter)="scrollTo('services')" tabindex="0" role="button">
+      <button type="button" class="btn btn-primary btn-glow btn-lg" (click)="scrollTo('services')">
         <span class="material-symbols-outlined">explore</span>
         Explore Our Services
-      </a>
-      <a class="btn btn-glass btn-lg" (click)="scrollTo('about')" (keydown.enter)="scrollTo('about')" tabindex="0" role="button">
+      </button>
+      <button type="button" class="btn btn-glass btn-lg" (click)="scrollTo('about')">
         <span class="material-symbols-outlined">play_circle</span>
         Learn More
-      </a>
+      </button>
     </div>
     <div class="hero-trust anim" data-delay="1000">
       <span class="trust-label">Trusted by</span>
@@ -115,50 +111,46 @@
           About Us
         </span>
         <h2 class="section-title anim" data-delay="100">
-          India's Trusted<br><span class="text-accent">B2B Transport Partner</span>
+          Company Profile<br><span class="text-accent">Nikita Traders</span>
         </h2>
         <p class="section-subtitle anim" data-delay="200">
-          Established in 2023 by the pioneers of the car rental industry, Nikita Traders is an
-          <strong>ISO certified</strong> company based in Odisha, delivering quality services across
-          Corporate, Banks, Media, FMCG, Telecom, and ITES sectors.
+          Nikita Traders is a trusted sole proprietorship established in <strong>2009</strong> under the
+          name Nikita Travel. Initially focused on transport services, the firm expanded operations and,
+          after GST amendments, was rebranded as Nikita Traders as a diversified multi-sector service provider.
         </p>
         <p class="about-desc anim" data-delay="300">
-          With a vision to be the undisputed industry leader, we provide cost-effective, safe, and comfortable
-          surface transport solutions. Our fleet of <strong>150+ vehicles</strong> operates round the clock, supervised
-          by trained professionals meeting international HSSE standards.
+          We started with cab and bus rental and evolved into integrated transport and supply solutions.
+          Today, we serve businesses at a Pan India level across Telecom, FMCG, Healthcare, and Corporate sectors
+          with reliable delivery and long-term service partnerships.
         </p>
 
         <div class="about-highlights anim" data-delay="400">
           <div class="highlight-item">
             <span class="material-symbols-outlined">verified</span>
             <div>
-              <strong>ISO Certified</strong>
-              <span>International Quality Standards</span>
+              <strong>15+ Years of Experience</strong>
+              <span>Proven service reliability since 2009</span>
             </div>
           </div>
           <div class="highlight-item">
             <span class="material-symbols-outlined">badge</span>
             <div>
-              <strong>MSME Registered</strong>
-              <span>UDYAM-OD-19-0091968</span>
+              <strong>Pan India Capability</strong>
+              <span>Transport and supply operations nationwide</span>
             </div>
           </div>
           <div class="highlight-item">
             <span class="material-symbols-outlined">receipt_long</span>
             <div>
-              <strong>GST Compliant</strong>
-              <span>21AIQPK9098N1ZD</span>
+              <strong>Trusted by Reputed Organizations</strong>
+              <span>Serving MNCs, hospitals, and enterprises</span>
             </div>
           </div>
         </div>
       </div>
 
       <div class="about-right">
-        <div class="about-card anim" data-delay="200" *ngFor="let card of [
-          { icon: 'visibility', title: 'Our Vision', desc: 'To be recognized as the best one-stop transport solution — offering adequate, prompt, professional, and time-bound logistics services across India.', accent: '#667eea' },
-          { icon: 'rocket_launch', title: 'Our Mission', desc: 'To lead corporate transport services using progressive technology, efficient manpower, well-maintained fleet, and time-honoured deliverables.', accent: '#f5576c' },
-          { icon: 'favorite', title: 'Our Values', desc: 'Quality experiences, cost-effective solutions, transparent ethics, and smiling people ensuring maximum satisfaction at every touchpoint.', accent: '#43e97b' }
-        ]">
+        <div class="about-card anim" data-delay="200" *ngFor="let card of aboutCards">
           <div class="card-accent" [style.background]="card.accent"></div>
           <div class="card-icon">
             <span class="material-symbols-outlined">{{ card.icon }}</span>
@@ -183,7 +175,7 @@
       </span>
       <h2 class="section-title">What We <span class="text-accent">Offer</span></h2>
       <p class="section-subtitle">
-        End-to-end transport &amp; supply solutions tailored for businesses across India.
+        End-to-end transport and multi-category supply solutions tailored for businesses across India.
       </p>
     </div>
 
@@ -202,9 +194,9 @@
             {{ feature }}
           </li>
         </ul>
-        <a class="service-link" (click)="scrollTo('contact')" (keydown.enter)="scrollTo('contact')" tabindex="0" role="button">
+        <button type="button" class="service-link" (click)="scrollTo('contact')">
           Get Quote <span class="material-symbols-outlined">east</span>
-        </a>
+        </button>
       </div>
     </div>
   </div>
@@ -302,7 +294,7 @@
       </span>
       <h2 class="section-title">Trusted By <span class="text-accent">Industry Leaders</span></h2>
       <p class="section-subtitle">
-        Authorized vendor partnerships with some of India's most respected organizations.
+        Trusted relationships with organizations across Telecom, FMCG, Healthcare, and Corporate sectors.
       </p>
     </div>
 
@@ -322,7 +314,7 @@
       <div class="tc-content">
         <span class="material-symbols-outlined tc-quote">format_quote</span>
         <p>"Reliable, efficient, and professional — Nikita Traders has been our go-to transport partner.
-          Their fleet management and support team are truly world-class."</p>
+          Their integrated transport and supply support helps us maintain smooth operations across locations."</p>
         <div class="tc-author">
           <div class="tc-author-avatar">C</div>
           <div>
@@ -345,7 +337,7 @@
       </span>
       <h2 class="section-title">The Nikita <span class="text-accent">Advantage</span></h2>
       <p class="section-subtitle">
-        What sets us apart in the competitive transport and logistics industry.
+        What makes Nikita Traders a dependable long-term business partner.
       </p>
     </div>
 
@@ -375,10 +367,10 @@
       <h2>Ready to Transform Your Business Logistics?</h2>
       <p>Join India's most trusted companies who rely on Nikita Traders for their transport &amp; supply needs.</p>
       <div class="cta-actions">
-        <a class="btn btn-primary btn-glow btn-lg" (click)="scrollTo('contact')" (keydown.enter)="scrollTo('contact')" tabindex="0" role="button">
+        <button type="button" class="btn btn-primary btn-glow btn-lg" (click)="scrollTo('contact')">
           <span class="material-symbols-outlined">phone_in_talk</span>
           Get Started Today
-        </a>
+        </button>
         <a class="btn btn-glass btn-lg" href="tel:+917735479750">
           <span class="material-symbols-outlined">call</span>
           Call +91-7735479750
@@ -388,57 +380,7 @@
   </div>
 </section>
 
-<!-- ===== ORG STRUCTURE ===== -->
-<section class="section org-section">
-  <div class="container">
-    <div class="section-header anim">
-      <span class="section-badge">
-        <span class="material-symbols-outlined">account_tree</span>
-        Our Team
-      </span>
-      <h2 class="section-title">Professional <span class="text-accent">Organization</span></h2>
-      <p class="section-subtitle">
-        A dedicated team of experienced professionals ensuring exceptional service delivery at every level.
-      </p>
-    </div>
-
-    <div class="org-chart anim" data-delay="200">
-      <div class="org-level org-top">
-        <div class="org-node org-director">
-          <span class="material-symbols-outlined">person</span>
-          <strong>Director</strong>
-          <span class="org-role">Leadership</span>
-        </div>
-      </div>
-      <div class="org-connector"></div>
-      <div class="org-level org-gms">
-        <div class="org-node" *ngFor="let gm of [
-          {icon: 'engineering', title: 'GM Operation', role: 'Operations Head'},
-          {icon: 'trending_up', title: 'GM Sales', role: 'Business Development'},
-          {icon: 'gavel', title: 'GM Compliance', role: 'Regulatory Affairs'},
-          {icon: 'account_balance', title: 'MIS & Finance', role: 'Financial Operations'}
-        ]">
-          <span class="material-symbols-outlined">{{ gm.icon }}</span>
-          <strong>{{ gm.title }}</strong>
-          <span class="org-role">{{ gm.role }}</span>
-        </div>
-      </div>
-      <div class="org-connector"></div>
-      <div class="org-level org-staff">
-        <div class="org-node org-staff-node" *ngFor="let staff of [
-          {icon: 'manage_accounts', title: 'Managers', count: '15+'},
-          {icon: 'supervisor_account', title: 'Supervisors', count: '30+'},
-          {icon: 'directions_car', title: 'Drivers', count: '200+'},
-          {icon: 'computer', title: 'MIS Executives', count: '10+'}
-        ]">
-          <span class="material-symbols-outlined">{{ staff.icon }}</span>
-          <strong>{{ staff.title }}</strong>
-          <span class="org-count">{{ staff.count }}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<app-leadership-section></app-leadership-section>
 
 <!-- ===== CONTACT SECTION ===== -->
 <section id="contact" class="section contact-section">
@@ -494,6 +436,7 @@
 
       <div class="contact-form-wrapper anim" data-delay="200">
         <form class="contact-form" (ngSubmit)="submitForm()">
+          <input type="text" name="website" [(ngModel)]="contactForm.website" tabindex="-1" autocomplete="off" class="hp-field" aria-hidden="true">
           <h3>Request a Quote</h3>
           <p class="form-subtitle">Fill in your details and we'll get back within 24 hours.</p>
           <div class="form-row">
@@ -564,7 +507,9 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="logo">
-          <span class="logo-icon">NT</span>
+          <span class="logo-icon">
+            <img src="nikita-logo.png" alt="Nikita Traders logo">
+          </span>
           <div class="logo-text">
             <span class="logo-name">Nikita Traders</span>
             <span class="logo-tag">Services Management</span>
@@ -574,7 +519,7 @@
         <div class="footer-social">
           <a class="social-btn" href="tel:+917735479750" aria-label="Call us"><span class="material-symbols-outlined">call</span></a>
           <a class="social-btn" href="mailto:Bharatkumargupta736&#64;gmail.com" aria-label="Email us"><span class="material-symbols-outlined">email</span></a>
-          <a class="social-btn" (click)="scrollTo('contact')" (keydown.enter)="scrollTo('contact')" tabindex="0" role="button" aria-label="Contact form"><span class="material-symbols-outlined">chat</span></a>
+          <button type="button" class="social-btn" (click)="scrollTo('contact')" aria-label="Contact form"><span class="material-symbols-outlined">chat</span></button>
         </div>
       </div>
 
@@ -582,10 +527,10 @@
         <h4>Quick Links</h4>
         <ul>
           <li *ngFor="let link of navLinks">
-            <a (click)="scrollTo(link.href)" (keydown.enter)="scrollTo(link.href)" tabindex="0" role="button">
+            <button type="button" class="footer-nav-btn" (click)="scrollTo(link.href)">
               <span class="material-symbols-outlined">chevron_right</span>
               {{ link.label }}
-            </a>
+            </button>
           </li>
         </ul>
       </div>
@@ -593,10 +538,10 @@
       <div class="footer-services">
         <h4>Our Services</h4>
         <ul>
-          <li><a (click)="scrollTo('services')" (keydown.enter)="scrollTo('services')" tabindex="0" role="button"><span class="material-symbols-outlined">chevron_right</span> Cab Rental</a></li>
-          <li><a (click)="scrollTo('services')" (keydown.enter)="scrollTo('services')" tabindex="0" role="button"><span class="material-symbols-outlined">chevron_right</span> Chartered Buses</a></li>
-          <li><a (click)="scrollTo('services')" (keydown.enter)="scrollTo('services')" tabindex="0" role="button"><span class="material-symbols-outlined">chevron_right</span> B2B Supplies</a></li>
-          <li><a (click)="scrollTo('services')" (keydown.enter)="scrollTo('services')" tabindex="0" role="button"><span class="material-symbols-outlined">chevron_right</span> Pan-India Logistics</a></li>
+          <li><button type="button" class="footer-nav-btn" (click)="scrollTo('services')"><span class="material-symbols-outlined">chevron_right</span> Cab Rental</button></li>
+          <li><button type="button" class="footer-nav-btn" (click)="scrollTo('services')"><span class="material-symbols-outlined">chevron_right</span> Chartered Buses</button></li>
+          <li><button type="button" class="footer-nav-btn" (click)="scrollTo('services')"><span class="material-symbols-outlined">chevron_right</span> B2B Supplies</button></li>
+          <li><button type="button" class="footer-nav-btn" (click)="scrollTo('services')"><span class="material-symbols-outlined">chevron_right</span> Pan-India Logistics</button></li>
         </ul>
       </div>
 
