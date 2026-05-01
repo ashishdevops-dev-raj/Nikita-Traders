@@ -1,40 +1,49 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
-import emailjs from '@emailjs/browser';
+import { of } from 'rxjs';
 import { App } from './app';
 
 describe('App contact form', () => {
   let app: App;
+  const httpMock = {
+    post: vi.fn()
+  };
 
   beforeEach(() => {
-    app = new App('browser');
+    httpMock.post.mockReset();
+    app = new App('browser', httpMock as any);
   });
 
   afterEach(() => {
     vi.restoreAllMocks();
   });
 
-  it('shows fallback error when EmailJS config is missing', async () => {
+  it('submits inquiry successfully via Netlify function', async () => {
+    httpMock.post.mockReturnValue(of({ ok: true }));
+
     app.contactForm = {
       name: 'Test User',
       email: 'test@example.com',
       phone: '+911234567890',
-      service: '',
+      service: 'Cab Rental Services',
       message: 'Need service quote',
       website: ''
     };
 
     await app.submitForm();
 
-    expect(app.formStatus).toBe('error');
-    expect(app.formMessage).toContain('temporarily unavailable');
+    expect(httpMock.post).toHaveBeenCalledWith('/.netlify/functions/request-quote', {
+      name: 'Test User',
+      email: 'test@example.com',
+      phone: '+911234567890',
+      service: 'Cab Rental Services',
+      message: 'Need service quote',
+      website: ''
+    });
+    expect(app.formStatus).toBe('success');
   });
 
   it('prevents rapid repeated submissions', async () => {
-    vi.spyOn(emailjs, 'send').mockResolvedValue({ status: 200, text: 'ok' } as never);
-
-    (app as any).EMAILJS_SERVICE_ID = 'service';
-    (app as any).EMAILJS_TEMPLATE_ID = 'template';
-    (app as any).EMAILJS_PUBLIC_KEY = 'public';
+    httpMock.post.mockReturnValue(of({ ok: true }));
 
     app.contactForm = {
       name: 'Test User',
