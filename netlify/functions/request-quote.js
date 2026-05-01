@@ -1,14 +1,27 @@
 const nodemailer = require('nodemailer');
 
 const REQUIRED_ENV_VARS = ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS', 'MAIL_TO'];
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
+};
 
 const isEmailValid = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || ''));
 
 exports.handler = async (event) => {
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: CORS_HEADERS,
+      body: ''
+    };
+  }
+
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
-      headers: { Allow: 'POST' },
+      headers: { ...CORS_HEADERS, Allow: 'POST' },
       body: JSON.stringify({ error: 'Method not allowed' })
     };
   }
@@ -18,6 +31,7 @@ exports.handler = async (event) => {
     console.error('Missing required environment variables:', missingVars.join(', '));
     return {
       statusCode: 500,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ error: 'Mail service is not configured' })
     };
   }
@@ -28,6 +42,7 @@ exports.handler = async (event) => {
   } catch {
     return {
       statusCode: 400,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ error: 'Invalid request payload' })
     };
   }
@@ -37,19 +52,11 @@ exports.handler = async (event) => {
   const phone = String(payload.phone || '').trim();
   const service = String(payload.service || 'Not specified').trim();
   const message = String(payload.message || '').trim();
-  const website = String(payload.website || '').trim();
-
-  // Honeypot trap: likely bot submission.
-  if (website) {
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ ok: true })
-    };
-  }
 
   if (!name || !email || !phone || !message) {
     return {
       statusCode: 400,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ error: 'Missing required fields' })
     };
   }
@@ -57,6 +64,7 @@ exports.handler = async (event) => {
   if (!isEmailValid(email)) {
     return {
       statusCode: 400,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ error: 'Invalid email address' })
     };
   }
@@ -90,12 +98,14 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 200,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ ok: true })
     };
   } catch (error) {
     console.error('Failed to send quote email:', error);
     return {
       statusCode: 500,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ error: 'Unable to send your request right now' })
     };
   }

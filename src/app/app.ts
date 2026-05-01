@@ -1,7 +1,7 @@
 import { Component, signal, HostListener, AfterViewInit, OnDestroy, PLATFORM_ID, Inject, ElementRef, ViewChild } from '@angular/core';
 import { isPlatformBrowser, NgFor, NgClass, NgIf } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { FormsModule, NgForm } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { LeadershipSectionComponent } from './components/leadership-section/leadership-section.component';
 import {
@@ -56,7 +56,7 @@ export class App implements AfterViewInit, OnDestroy {
   private lastSubmitAt = 0;
   private readonly SUBMIT_COOLDOWN_MS = 30_000;
 
-  private readonly quoteEndpoint = '/.netlify/functions/request-quote';
+  private readonly quoteEndpoint: string;
 
   currentYear = new Date().getFullYear();
 
@@ -76,6 +76,7 @@ export class App implements AfterViewInit, OnDestroy {
     private readonly http: HttpClient
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
+    this.quoteEndpoint = this.resolveQuoteEndpoint();
   }
 
   ngAfterViewInit() {
@@ -156,12 +157,7 @@ export class App implements AfterViewInit, OnDestroy {
     }
   }
 
-  async submitForm() {
-    // Honeypot field: bots often fill hidden inputs.
-    if (this.contactForm.website.trim()) {
-      return;
-    }
-
+  async submitForm(form?: NgForm) {
     const now = Date.now();
     if (now - this.lastSubmitAt < this.SUBMIT_COOLDOWN_MS) {
       this.formStatus = 'error';
@@ -200,11 +196,31 @@ export class App implements AfterViewInit, OnDestroy {
       this.formStatus = 'success';
       this.formMessage = 'Thank you! Your inquiry has been sent successfully. We\'ll get back to you within 24 hours.';
       this.contactForm = { name: '', email: '', phone: '', service: '', message: '', website: '' };
+      form?.resetForm({ name: '', email: '', phone: '', service: '', message: '', website: '' });
       this.lastSubmitAt = now;
-    } catch {
+    } catch (error) {
+      const httpError = error as HttpErrorResponse;
+      const backendMessage = typeof httpError?.error?.error === 'string' ? httpError.error.error : '';
+      const statusCode = httpError?.status;
+
+      if (statusCode === 404) {
+        this.formMessage = 'Contact API not found. On local machine use Netlify dev; on production redeploy with Netlify Functions enabled.';
+      } else if (backendMessage) {
+        this.formMessage = backendMessage;
+      } else if (!statusCode) {
+        this.formMessage = 'Unable to reach contact service. Please check network and try again.';
+      } else {
+        this.formMessage = 'Something went wrong. Please try again or contact us directly at +91-7735479750.';
+      }
       this.formStatus = 'error';
-      this.formMessage = 'Something went wrong. Please try again or contact us directly at +91-7735479750.';
     }
+  }
+
+  private resolveQuoteEndpoint(): string {
+    if (this.isBrowser && window.location.hostname === 'localhost') {
+      return 'http://localhost:8888/.netlify/functions/request-quote';
+    }
+    return '/.netlify/functions/request-quote';
   }
 
   ngOnDestroy() {

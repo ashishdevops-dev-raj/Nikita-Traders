@@ -85,7 +85,9 @@ export const SERVICES: Service[] = [
 export const FLEET_DATA: FleetData[] = [
   { type: 'Sedan Cabs', count: 70, icon: 'directions_car', gradient: 'linear-gradient(135deg, #0f2b46, #1a4a73)' },
   { type: 'SUV Vehicles', count: 60, icon: 'airport_shuttle', gradient: 'linear-gradient(135deg, #1a3d5c, #2a6496)' },
-  { type: 'Hatchbacks', count: 20, icon: 'drive_eta', gradient: 'linear-gradient(135deg, #d4a853, #e8c875)' }
+  { type: 'Hatchbacks', count: 20, icon: 'drive_eta', gradient: 'linear-gradient(135deg, #d4a853, #e8c875)' },
+  { type: 'Traveller', count: 12, icon: 'airport_shuttle', gradient: 'linear-gradient(135deg, #355f8c, #4a7bb1)' },
+  { type: 'Bus', count: 8, icon: 'directions_bus', gradient: 'linear-gradient(135deg, #2f4f78, #3f6aa0)' }
 ];
 
 export const FLEET_FEATURES: FleetFeature[] = [

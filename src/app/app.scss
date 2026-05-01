@@ -880,7 +880,8 @@
 }
 
 .fleet-count-cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
   gap: 16px;
 }
 
@@ -1947,7 +1948,7 @@ button[disabled] {
   }
 
   .fleet-count-cards {
-    flex-wrap: wrap;
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
   }
 
   .fleet-features-grid {
@@ -2039,6 +2040,10 @@ button[disabled] {
   }
 
   .fleet-features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fleet-count-cards {
     grid-template-columns: 1fr;
   }
 

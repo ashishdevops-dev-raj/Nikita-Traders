@@ -435,7 +435,7 @@
       </div>
 
       <div class="contact-form-wrapper anim" data-delay="200">
-        <form class="contact-form" (ngSubmit)="submitForm()">
+        <form class="contact-form" #contactNgForm="ngForm" (ngSubmit)="submitForm(contactNgForm)">
           <input type="text" name="website" [(ngModel)]="contactForm.website" tabindex="-1" autocomplete="off" class="hp-field" aria-hidden="true">
           <h3>Request a Quote</h3>
           <p class="form-subtitle">Fill in your details and we'll get back within 24 hours.</p>
