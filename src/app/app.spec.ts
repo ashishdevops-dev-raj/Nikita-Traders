@@ -31,7 +31,7 @@ describe('App contact form', () => {
 
     await app.submitForm();
 
-    expect(httpMock.post).toHaveBeenCalledWith('/.netlify/functions/request-quote', {
+    expect(httpMock.post).toHaveBeenCalledWith((app as any).quoteEndpoint, {
       name: 'Test User',
       email: 'test@example.com',
       phone: '+911234567890',
