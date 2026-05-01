@@ -80,9 +80,10 @@ exports.handler = async (event) => {
       }
     });
 
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: `"Nikita Traders Quote Bot" <${process.env.SMTP_USER}>`,
       to: process.env.MAIL_TO,
+      bcc: process.env.SMTP_USER,
       replyTo: email,
       subject: `New Request a Quote: ${name}`,
       text: [
@@ -94,6 +95,21 @@ exports.handler = async (event) => {
         'Message:',
         message
       ].join('\n')
+    });
+
+    if (Array.isArray(info.rejected) && info.rejected.length > 0) {
+      console.error('SMTP rejected recipients:', info.rejected);
+      return {
+        statusCode: 502,
+        headers: CORS_HEADERS,
+        body: JSON.stringify({ error: 'Recipient rejected by mail server' })
+      };
+    }
+
+    console.log('Quote mail sent:', {
+      messageId: info.messageId,
+      accepted: info.accepted,
+      rejected: info.rejected
     });
 
     return {
