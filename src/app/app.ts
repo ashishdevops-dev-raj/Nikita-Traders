@@ -1,8 +1,8 @@
 import { Component, signal, HostListener, AfterViewInit, OnDestroy, PLATFORM_ID, Inject, ElementRef, ViewChild } from '@angular/core';
 import { isPlatformBrowser, NgFor, NgClass, NgIf } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import emailjs from '@emailjs/browser';
-import { environment } from '../environments/environment';
+import { firstValueFrom } from 'rxjs';
 import { LeadershipSectionComponent } from './components/leadership-section/leadership-section.component';
 import {
   ABOUT_CARDS,
@@ -56,10 +56,7 @@ export class App implements AfterViewInit, OnDestroy {
   private lastSubmitAt = 0;
   private readonly SUBMIT_COOLDOWN_MS = 30_000;
 
-  // EmailJS configuration from environment
-  private readonly EMAILJS_SERVICE_ID = environment.emailjs.serviceId;
-  private readonly EMAILJS_TEMPLATE_ID = environment.emailjs.templateId;
-  private readonly EMAILJS_PUBLIC_KEY = environment.emailjs.publicKey;
+  private readonly quoteEndpoint = '/.netlify/functions/request-quote';
 
   currentYear = new Date().getFullYear();
 
@@ -74,7 +71,10 @@ export class App implements AfterViewInit, OnDestroy {
   timeline = TIMELINE;
   accessories = ACCESSORIES;
 
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+  constructor(
+    @Inject(PLATFORM_ID) platformId: Object,
+    private readonly http: HttpClient
+  ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
@@ -157,12 +157,6 @@ export class App implements AfterViewInit, OnDestroy {
   }
 
   async submitForm() {
-    if (!this.EMAILJS_SERVICE_ID || !this.EMAILJS_TEMPLATE_ID || !this.EMAILJS_PUBLIC_KEY) {
-      this.formStatus = 'error';
-      this.formMessage = 'Contact form is temporarily unavailable. Please call +91-7735479750.';
-      return;
-    }
-
     // Honeypot field: bots often fill hidden inputs.
     if (this.contactForm.website.trim()) {
       return;
@@ -192,18 +186,15 @@ export class App implements AfterViewInit, OnDestroy {
     this.formMessage = '';
 
     try {
-      await emailjs.send(
-        this.EMAILJS_SERVICE_ID,
-        this.EMAILJS_TEMPLATE_ID,
-        {
-          from_name: this.contactForm.name,
-          from_email: this.contactForm.email,
+      await firstValueFrom(
+        this.http.post<{ ok: boolean }>(this.quoteEndpoint, {
+          name: this.contactForm.name,
+          email: this.contactForm.email,
           phone: this.contactForm.phone,
           service: this.contactForm.service || 'Not specified',
           message: this.contactForm.message,
           website: this.contactForm.website
-        },
-        this.EMAILJS_PUBLIC_KEY
+        })
       );
 
       this.formStatus = 'success';
