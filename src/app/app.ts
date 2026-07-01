@@ -8,6 +8,7 @@ import {
   ABOUT_CARDS,
   ACCESSORIES,
   CLIENTS,
+  CORE_VALUES,
   FLEET_DATA,
   FLEET_FEATURES,
   NAV_LINKS,
@@ -68,6 +69,7 @@ export class App implements AfterViewInit, OnDestroy {
   fleetFeatures = FLEET_FEATURES;
   clients = CLIENTS;
   whyUsReasons = WHY_US_REASONS;
+  coreValues = CORE_VALUES;
   timeline = TIMELINE;
   accessories = ACCESSORIES;
 

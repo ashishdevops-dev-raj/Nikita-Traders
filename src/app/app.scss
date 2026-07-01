@@ -1751,7 +1751,7 @@ button[disabled] {
 .footer-grid {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1.5fr;
-  gap: 40px;
+  gap: 40px 80px;
   padding: 20px 0 50px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -1846,11 +1846,14 @@ button[disabled] {
 
 .footer-nav-btn {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 6px;
   background: transparent;
   border: 0;
   padding: 0;
+  flex-wrap: wrap;
+  white-space: normal;
+  text-align: left;
 }
 
 .footer-bottom {

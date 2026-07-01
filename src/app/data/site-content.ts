@@ -34,19 +34,19 @@ export const ABOUT_CARDS: AboutCard[] = [
   {
     icon: 'visibility',
     title: 'Our Vision',
-    desc: "To become one of India's most reliable and leading service providers by expanding transport, logistics, and supply chain solutions with long-term client trust.",
+    desc: 'To become one of India’s most trusted business partners for transportation, procurement, and institutional supply services through innovation, integrity, and customer satisfaction.',
     accent: '#667eea'
   },
   {
     icon: 'rocket_launch',
-    title: 'Our Evolution',
-    desc: 'From local cab and bus rentals to a diversified Pan India transport and multi-category supply services company across industries.',
+    title: 'Our Mission',
+    desc: 'To provide dependable transportation and procurement solutions that help organizations operate more efficiently while maintaining the highest standards of quality and professionalism.',
     accent: '#f5576c'
   },
   {
     icon: 'favorite',
     title: 'Our Commitment',
-    desc: 'Quality, reliability, and timely delivery through professional execution and customer-first service standards.',
+    desc: 'To build long-term relationships through reliable service, transparent operations, and a customer-first approach across every engagement.',
     accent: '#43e97b'
   }
 ];
@@ -54,30 +54,30 @@ export const ABOUT_CARDS: AboutCard[] = [
 export const SERVICES: Service[] = [
   {
     icon: 'local_taxi',
-    title: 'Corporate Cab Services',
-    description: 'Reliable corporate cab services for daily office movement, executive travel, and business commute support.',
-    features: ['Corporate Mobility', 'On-Call Support', 'Well-Maintained Vehicles'],
+    title: 'Corporate Transportation',
+    description: 'Reliable corporate vehicle solutions including rental, fleet management, driver-with-vehicle support, employee transportation, and long-term deployment.',
+    features: ['Corporate Vehicle Rental', 'Fleet Management', 'Driver with Vehicle', 'Employee Transportation', 'Site Operations Support'],
     gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
   },
   {
-    icon: 'airport_shuttle',
-    title: 'Employee Transport (B2B)',
-    description: 'Cab and bus employee transportation solutions with long-term deployment, route discipline, and safe operations.',
-    features: ['Cab and Bus Services', 'B2B Employee Commute', 'Long-Term Contracts'],
+    icon: 'settings',
+    title: 'Fleet Management',
+    description: 'Professional fleet management services to ensure vehicle uptime, driver compliance, cost control, and efficient deployment across corporate operations.',
+    features: ['Vehicle Scheduling', 'Preventive Maintenance', 'Performance Tracking', 'Driver Compliance', 'Long-Term Vehicle Contracts'],
     gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
   },
   {
     icon: 'inventory_2',
-    title: 'Supply & Service Solutions',
-    description: 'Pan India supply support for grocery, beverages, stationery, and FMCG items for monthly and bulk business demand.',
-    features: ['Grocery and Bulk Supply', 'Beverages and Stationery', 'FMCG Essentials'],
+    title: 'Institutional Grocery Supply',
+    description: 'Comprehensive grocery and consumables supply for institutions, including dry ration, kitchen essentials, housekeeping materials, and recurring procurement.',
+    features: ['Grocery Supply', 'Dry Ration Supply', 'Kitchen Essentials', 'Housekeeping Consumables', 'Customized Supply Contracts'],
     gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
   },
   {
-    icon: 'local_shipping',
-    title: 'Pan India Delivery Capability',
-    description: 'Integrated transport and supply distribution network enabling timely service and delivery across India.',
-    features: ['Nationwide Reach', 'Timely Delivery', 'Multi-Sector Support'],
+    icon: 'shopping_cart',
+    title: 'Procurement Services',
+    description: 'Tailored procurement solutions for businesses and institutions, focused on quality sourcing, vendor coordination, and reliable contract execution.',
+    features: ['Monthly Institutional Procurement', 'Quality Sourcing', 'Vendor Management', 'Tender Coordination', 'Contract Fulfillment'],
     gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
   }
 ];
@@ -100,33 +100,38 @@ export const FLEET_FEATURES: FleetFeature[] = [
 ];
 
 export const CLIENTS: Client[] = [
-  { name: 'Airtel', category: 'Telecom', color: '#ed1c24' },
-  { name: 'Jio', category: 'Telecom', color: '#0052cc' },
-  { name: 'BSNL', category: 'Telecom', color: '#008272' },
-  { name: 'Coca-Cola', category: 'FMCG & Beverages', color: '#e31937' },
+  { name: 'Airtel Telecom', category: 'Telecom', color: '#ed1c24' },
+  { name: 'Jio Telecom', category: 'Telecom', color: '#0052cc' },
+  { name: 'BSNL Telecom', category: 'Telecom', color: '#008272' },
+  { name: 'WTTIL (WTI Infrastructure)', category: 'Infrastructure', color: '#2d5f2d' },
+  { name: 'Solasta', category: 'Infrastructure', color: '#8b5cf6' },
+  { name: 'Mediversal Hospital', category: 'Healthcare', color: '#0f766e' },
+  { name: 'KT Global School', category: 'Education', color: '#2563eb' },
+  { name: 'Coca-Cola', category: 'FMCG', color: '#e31937' },
   { name: 'Blinkit', category: 'Quick Commerce', color: '#f9ce1d' },
-  { name: 'Zomato', category: 'Food Delivery', color: '#e23744' },
-  { name: 'WTTIL (WTI)', category: 'Infrastructure', color: '#2d5f2d' },
-  { name: 'Solasta', category: 'Enterprise', color: '#8b5cf6' },
-  { name: 'KT Global', category: 'Odisha Client', color: '#2563eb' },
-  { name: 'Mediversal Hospital', category: 'Healthcare', color: '#0f766e' }
+  { name: 'Zomato', category: 'Food Delivery', color: '#e23744' }
 ];
 
 export const WHY_US_REASONS: WhyUsReason[] = [
-  { icon: 'history', title: '15+ Years of Industry Experience', description: 'Strong track record built through long-term service delivery and operational consistency since 2009.', number: '01' },
-  { icon: 'domain', title: 'Multi-Industry Presence', description: 'Active across Telecom, FMCG, Healthcare, and Corporate sectors with adaptable service models.', number: '02' },
-  { icon: 'public', title: 'Pan India Operations', description: 'Transport and supply capability across India for both recurring and large-scale requirements.', number: '03' },
-  { icon: 'handshake', title: 'Trusted by Reputed Organizations', description: 'Reliable partner for leading brands, enterprises, and institutions.', number: '04' },
-  { icon: 'task_alt', title: 'Commitment to Quality', description: 'Focused on reliability, service quality, and timeline adherence in every assignment.', number: '05' },
-  { icon: 'local_shipping', title: 'Integrated Solutions', description: 'One partner for mobility, transport, and multi-category supply support.', number: '06' }
+  { icon: 'history', title: 'Established Since 2009', description: 'A trusted business enterprise built on strong fundamentals and long-term reliability.', number: '01' },
+  { icon: 'workspace_premium', title: '15+ Years of Industry Experience', description: 'A proven track record of dependable service delivery across diverse industry requirements.', number: '02' },
+  { icon: 'groups', title: 'Professional & Dedicated Team', description: 'Experienced professionals committed to operational excellence and responsive service.', number: '03' },
+  { icon: 'apartment', title: 'Corporate Service Standards', description: 'Structured processes and disciplined execution aligned with business expectations.', number: '04' },
+  { icon: 'price_check', title: 'Competitive Pricing', description: 'Cost-effective solutions designed to support institutional and corporate budgets.', number: '05' },
+  { icon: 'schedule_send', title: 'Timely Delivery', description: 'Focused on consistent execution and on-time delivery for every assignment.', number: '06' },
+  { icon: 'local_shipping', title: 'Reliable Fleet Management', description: 'Professional transportation operations backed by managed fleet support and accountability.', number: '07' },
+  { icon: 'inventory_2', title: 'Quality Procurement', description: 'Institutional supply solutions delivered with quality and consistency at the core.', number: '08' },
+  { icon: 'handshake', title: 'Long-Term Business Relationships', description: 'Trusted by clients who value continuity, transparency, and dependable partnership.', number: '09' }
 ];
 
 export const TIMELINE: TimelineItem[] = [
-  { year: '2009', title: 'Nikita Travel Started', description: 'Operations began with focused transport services and local mobility support.', icon: 'flag' },
-  { year: '2015', title: 'Service Expansion', description: 'Cab and bus service operations expanded with stronger B2B and contractual engagements.', icon: 'trending_up' },
-  { year: '2020', title: 'Diversification', description: 'Added supply and service solutions including grocery, beverages, stationery, and FMCG.', icon: 'inventory_2' },
-  { year: '2026', title: 'Pan India Nikita Traders', description: 'Rebranded and operating as Nikita Traders with integrated transport and nationwide supply capabilities.', icon: 'public' }
+  { year: '2009', title: 'Founded', description: 'Nikita Traders was established in 2009 with a focus on corporate transportation services.', icon: 'flag' },
+  { year: '2015', title: 'Business Expansion', description: 'Operations evolved to support broader corporate and institutional requirements with greater reach.', icon: 'trending_up' },
+  { year: '2020', title: 'Institutional Supply Growth', description: 'Expanded into procurement and institutional supply solutions for diverse business needs.', icon: 'inventory_2' },
+  { year: '2026', title: 'Trusted Enterprise Partner', description: 'Today, the company serves organizations across multiple sectors with professionalism and consistency.', icon: 'public' }
 ];
+
+export const CORE_VALUES: string[] = ['Integrity', 'Commitment', 'Professionalism', 'Quality', 'Reliability', 'Customer First', 'Transparency', 'Long-Term Partnership'];
 
 export const ACCESSORIES: Accessory[] = [
   { icon: 'local_fire_department', name: 'Fire Extinguisher' },
@@ -141,24 +146,24 @@ export const ACCESSORIES: Accessory[] = [
 
 export const LEADERSHIP_PROFILE: LeadershipProfile = {
   name: 'Bharat Kumar',
-  role: 'Owner & Director',
+  role: 'Founder & Proprietor',
   summary:
-    'Bharat Kumar provides strategic leadership to Nikita Traders, driving dependable transport operations, Pan India supply execution, and long-term client value. His direction has transformed the company from a transport-focused business into a trusted multi-sector service partner known for quality and reliability.',
+    'Bharat Kumar founded Nikita Traders and leads the company’s overall business operations, corporate transportation services, fleet operations, client relationship management, and strategic growth.',
   image: 'bharat-kumar.png',
-  imageAlt: 'Bharat Kumar, Owner and Director of Nikita Traders'
+  imageAlt: 'Bharat Kumar, Founder and Proprietor of Nikita Traders'
 };
 
 export const ORGANIZATION_LEADS: OrganizationLead[] = [
   {
     icon: 'engineering',
-    title: 'Subham Kumar Gupta',
-    role: 'Head - Operations / Management',
-    focus: 'Service operations, deployment, and execution quality'
+    title: 'Bharat Kumar',
+    role: 'Founder & Proprietor',
+    focus: 'Business strategy, corporate transportation, fleet operations, and client relationships'
   },
   {
     icon: 'manage_accounts',
     title: 'Manish Kumar',
-    role: 'Department Head',
-    focus: 'Department coordination and delivery timelines'
+    role: 'Business Partner – Institutional Supply & Business Development',
+    focus: 'Institutional procurement, grocery supply, vendor management, tender coordination, and client servicing'
   }
 ];

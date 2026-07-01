@@ -21,7 +21,7 @@
       </span>
       <div class="logo-text">
         <span class="logo-name">Nikita Traders</span>
-        <span class="logo-tag">Services Management</span>
+        <span class="logo-tag">Driving Business Forward. Delivering Excellence.</span>
       </div>
     </a>
 
@@ -52,24 +52,23 @@
   <div class="hero-content">
     <div class="hero-badge anim" data-delay="200">
       <span class="badge-dot"></span>
-      Since 2009 &bull; Pan India Operations &bull; Odisha, India
+      Established in 2009 &bull; Corporate Transportation &bull; Institutional Supply
     </div>
     <h1 class="hero-title anim" data-delay="400">
-      Driving Business Forward<br>
-      <span class="hero-highlight">with Excellence</span>
+      Corporate Transportation &amp;<br>
+      <span class="hero-highlight">Institutional Supply Solutions</span>
     </h1>
     <p class="hero-subtitle anim" data-delay="600">
-      India's trusted B2B transport &amp; supply partner. 150+ vehicle fleet,
-      pan-India logistics, and comprehensive supply solutions — all under one roof.
+      Established in 2009, Nikita Traders has over 15 years of experience delivering reliable corporate transportation, fleet management, and institutional supply solutions for businesses across multiple industries.
     </p>
     <div class="hero-actions anim" data-delay="800">
-      <button type="button" class="btn btn-primary btn-glow btn-lg" (click)="scrollTo('services')">
+      <button type="button" class="btn btn-primary btn-glow btn-lg" (click)="scrollTo('contact')">
+        <span class="material-symbols-outlined">mail</span>
+        Contact Us
+      </button>
+      <button type="button" class="btn btn-glass btn-lg" (click)="scrollTo('services')">
         <span class="material-symbols-outlined">explore</span>
         Explore Our Services
-      </button>
-      <button type="button" class="btn btn-glass btn-lg" (click)="scrollTo('about')">
-        <span class="material-symbols-outlined">play_circle</span>
-        Learn More
       </button>
     </div>
     <div class="hero-trust anim" data-delay="1000">
@@ -114,14 +113,10 @@
           Company Profile<br><span class="text-accent">Nikita Traders</span>
         </h2>
         <p class="section-subtitle anim" data-delay="200">
-          Nikita Traders is a trusted sole proprietorship established in <strong>2009</strong> under the
-          name Nikita Travel. Initially focused on transport services, the firm expanded operations and,
-          after GST amendments, was rebranded as Nikita Traders as a diversified multi-sector service provider.
+          Established in <strong>2009</strong>, Nikita Traders is a trusted business enterprise specializing in Corporate Transportation Services and Institutional Supply Solutions.
         </p>
         <p class="about-desc anim" data-delay="300">
-          We started with cab and bus rental and evolved into integrated transport and supply solutions.
-          Today, we serve businesses at a Pan India level across Telecom, FMCG, Healthcare, and Corporate sectors
-          with reliable delivery and long-term service partnerships.
+          Over the past 15+ years, we have built long-term relationships with corporate and institutional clients by delivering dependable services, operational excellence, and customer-focused solutions. Founded by Bharat Kumar and strengthened by Manish Kumar as Business Partner, we proudly serve organizations across telecom, healthcare, education, infrastructure, FMCG, and quick-commerce sectors.
         </p>
 
         <div class="about-highlights anim" data-delay="400">
@@ -175,7 +170,7 @@
       </span>
       <h2 class="section-title">What We <span class="text-accent">Offer</span></h2>
       <p class="section-subtitle">
-        End-to-end transport and multi-category supply solutions tailored for businesses across India.
+        Modern transportation and institutional supply solutions tailored to the evolving needs of enterprise and business clients.
       </p>
     </div>
 
@@ -294,7 +289,7 @@
       </span>
       <h2 class="section-title">Trusted By <span class="text-accent">Industry Leaders</span></h2>
       <p class="section-subtitle">
-        Trusted relationships with organizations across Telecom, FMCG, Healthcare, and Corporate sectors.
+        Reliable partnerships with organizations across telecom, infrastructure, healthcare, education, FMCG, and quick-commerce sectors.
       </p>
     </div>
 
@@ -308,20 +303,11 @@
       </div>
     </div>
 
-    <!-- Testimonial -->
     <div class="testimonial-card anim" data-delay="200">
       <div class="tc-accent"></div>
       <div class="tc-content">
         <span class="material-symbols-outlined tc-quote">format_quote</span>
-        <p>"Reliable, efficient, and professional — Nikita Traders has been our go-to transport partner.
-          Their integrated transport and supply support helps us maintain smooth operations across locations."</p>
-        <div class="tc-author">
-          <div class="tc-author-avatar">C</div>
-          <div>
-            <strong>Corporate Client</strong>
-            <span>Transport &amp; Logistics</span>
-          </div>
-        </div>
+        <p>"Reliable, efficient, and professional — Nikita Traders delivers dependable corporate transportation and institutional supply support that helps organizations operate with confidence and consistency."</p>
       </div>
     </div>
   </div>
@@ -337,7 +323,7 @@
       </span>
       <h2 class="section-title">The Nikita <span class="text-accent">Advantage</span></h2>
       <p class="section-subtitle">
-        What makes Nikita Traders a dependable long-term business partner.
+        The qualities that make Nikita Traders a dependable long-term business partner for organizations that value consistency and excellence.
       </p>
     </div>
 
@@ -354,6 +340,32 @@
   </div>
 </section>
 
+<!-- ===== CORE VALUES ===== -->
+<section class="section values-section">
+  <div class="container">
+    <div class="section-header anim">
+      <span class="section-badge">
+        <span class="material-symbols-outlined">diamond</span>
+        Core Values
+      </span>
+      <h2 class="section-title">The Principles Behind <span class="text-accent">Every Engagement</span></h2>
+      <p class="section-subtitle">
+        The values that guide our approach to service, operations, and long-term partnerships.
+      </p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card anim" *ngFor="let value of coreValues; let i = index" [attr.data-delay]="i * 90">
+        <div class="why-number">0{{ i + 1 }}</div>
+        <div class="why-icon">
+          <span class="material-symbols-outlined">diamond</span>
+        </div>
+        <h3>{{ value }}</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== CTA BANNER ===== -->
 <section class="cta-banner">
   <div class="cta-bg">
@@ -364,8 +376,8 @@
   </div>
   <div class="container">
     <div class="cta-content anim">
-      <h2>Ready to Transform Your Business Logistics?</h2>
-      <p>Join India's most trusted companies who rely on Nikita Traders for their transport &amp; supply needs.</p>
+      <h2>Ready to Elevate Your Transportation &amp; Supply Operations?</h2>
+      <p>Partner with Nikita Traders for dependable corporate transportation and institutional supply support tailored to your business.</p>
       <div class="cta-actions">
         <button type="button" class="btn btn-primary btn-glow btn-lg" (click)="scrollTo('contact')">
           <span class="material-symbols-outlined">phone_in_talk</span>
@@ -391,9 +403,9 @@
           <span class="material-symbols-outlined">mail</span>
           Get In Touch
         </span>
-        <h2 class="section-title anim" data-delay="100">Let's Build<br><span class="text-accent">Something Great</span></h2>
+        <h2 class="section-title anim" data-delay="100">Let’s Build<br><span class="text-accent">Something Reliable</span></h2>
         <p class="section-subtitle anim" data-delay="200">
-          Ready to experience premium transport and supply services? Let us create a customized solution for your business.
+          Connect with Nikita Traders for professional transportation and institutional procurement solutions designed around your operational needs.
         </p>
 
         <div class="contact-details anim" data-delay="300">
@@ -404,6 +416,7 @@
             <div class="ci-info">
               <span class="ci-label">Phone</span>
               <a href="tel:+917735479750">+91-7735479750</a>
+              <a href="tel:+919060962776">+91-9060962776</a>
             </div>
           </div>
           <div class="contact-item">
@@ -412,7 +425,7 @@
             </div>
             <div class="ci-info">
               <span class="ci-label">Email</span>
-              <a href="mailto:Bharatkumargupta736&#64;gmail.com">Bharatkumargupta736&#64;gmail.com</a>
+              <a href="mailto:nikita.traders.services@gmail.com">nikita.traders.services@gmail.com</a>
             </div>
           </div>
           <div class="contact-item">
@@ -429,7 +442,7 @@
         <div class="contact-map anim" data-delay="400">
           <div class="map-placeholder">
             <span class="material-symbols-outlined">pin_drop</span>
-            <span>Operations across Odisha, Bihar &amp; Jharkhand</span>
+            <span>Operations across Odisha, Bihar, and Jharkhand</span>
           </div>
         </div>
       </div>
@@ -438,7 +451,7 @@
         <form class="contact-form" #contactNgForm="ngForm" (ngSubmit)="submitForm(contactNgForm)">
           <input type="text" name="website" [(ngModel)]="contactForm.website" tabindex="-1" autocomplete="off" class="hp-field" aria-hidden="true">
           <h3>Request a Quote</h3>
-          <p class="form-subtitle">Fill in your details and we'll get back within 24 hours.</p>
+          <p class="form-subtitle">Share your requirements and our team will respond promptly.</p>
           <div class="form-row">
             <div class="form-group">
               <label for="name">Full Name <span class="required">*</span></label>
@@ -458,10 +471,10 @@
               <label for="service">Service Required</label>
               <select id="service" name="service" [(ngModel)]="contactForm.service">
                 <option value="">Select a service</option>
-                <option value="Cab Rental Services">Cab Rental Services</option>
-                <option value="Chartered Bus Services">Chartered Bus Services</option>
-                <option value="B2B Supply Solutions">B2B Supply Solutions</option>
-                <option value="Pan-India Logistics">Pan-India Logistics</option>
+                <option value="Corporate Transportation">Corporate Transportation</option>
+                <option value="Fleet Management">Fleet Management</option>
+                <option value="Institutional Grocery Supply">Institutional Grocery Supply</option>
+                <option value="Procurement Services">Procurement Services</option>
                 <option value="Other">Other</option>
               </select>
             </div>
@@ -512,13 +525,13 @@
           </span>
           <div class="logo-text">
             <span class="logo-name">Nikita Traders</span>
-            <span class="logo-tag">Services Management</span>
+            <span class="logo-tag">Driving Business Forward. Delivering Excellence.</span>
           </div>
         </div>
-        <p>One of India's leading B2B transport &amp; supply service providers. ISO certified, MSME registered, and committed to excellence in every journey.</p>
+        <p>Delivering dependable corporate transportation and institutional supply solutions for businesses across multiple industries with professionalism, transparency, and long-term commitment.</p>
         <div class="footer-social">
           <a class="social-btn" href="tel:+917735479750" aria-label="Call us"><span class="material-symbols-outlined">call</span></a>
-          <a class="social-btn" href="mailto:Bharatkumargupta736&#64;gmail.com" aria-label="Email us"><span class="material-symbols-outlined">email</span></a>
+          <a class="social-btn" href="mailto:nikita.traders.services@gmail.com" aria-label="Email us"><span class="material-symbols-outlined">email</span></a>
           <button type="button" class="social-btn" (click)="scrollTo('contact')" aria-label="Contact form"><span class="material-symbols-outlined">chat</span></button>
         </div>
       </div>
@@ -538,10 +551,11 @@
       <div class="footer-services">
         <h4>Our Services</h4>
         <ul>
-          <li><button type="button" class="footer-nav-btn" (click)="scrollTo('services')"><span class="material-symbols-outlined">chevron_right</span> Cab Rental</button></li>
-          <li><button type="button" class="footer-nav-btn" (click)="scrollTo('services')"><span class="material-symbols-outlined">chevron_right</span> Chartered Buses</button></li>
-          <li><button type="button" class="footer-nav-btn" (click)="scrollTo('services')"><span class="material-symbols-outlined">chevron_right</span> B2B Supplies</button></li>
-          <li><button type="button" class="footer-nav-btn" (click)="scrollTo('services')"><span class="material-symbols-outlined">chevron_right</span> Pan-India Logistics</button></li>
+          <li><button type="button" class="footer-nav-btn" (click)="scrollTo('services')"><span class="material-symbols-outlined">chevron_right</span> Corporate </button></li>
+          <li><button type="button" class="footer-nav-btn" (click)="scrollTo('services')"><span class="material-symbols-outlined">chevron_right</span> Fleet </button></li>
+          <li><button type="button" class="footer-nav-btn" (click)="scrollTo('services')"><span class="material-symbols-outlined">chevron_right</span> Procurement </button></li>
+          <li><button type="button" class="footer-nav-btn" (click)="scrollTo('services')"><span class="material-symbols-outlined">chevron_right</span> Grocery </button></li>
+
         </ul>
       </div>
 
@@ -553,8 +567,12 @@
             <a href="tel:+917735479750">+91-7735479750</a>
           </li>
           <li>
+            <span class="material-symbols-outlined">call</span>
+            <a href="tel:+919060962776">+91-9060962776</a>
+          </li>
+          <li>
             <span class="material-symbols-outlined">email</span>
-            <a href="mailto:Bharatkumargupta736&#64;gmail.com">Bharatkumargupta736&#64;gmail.com</a>
+            <a href="mailto:nikita.traders.services@gmail.com">nikita.traders.services@gmail.com</a>
           </li>
           <li>
             <span class="material-symbols-outlined">location_on</span>

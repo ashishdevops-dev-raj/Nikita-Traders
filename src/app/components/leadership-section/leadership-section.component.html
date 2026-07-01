@@ -6,9 +6,9 @@
         <span class="material-symbols-outlined">account_tree</span>
         Our Team
       </span>
-      <h2 class="section-title">Professional <span class="text-accent">Organization</span></h2>
+      <h2 class="section-title">Leadership <span class="text-accent">Team</span></h2>
       <p class="section-subtitle">
-        A focused leadership structure that keeps operations efficient, service quality consistent, and client commitments on track.
+        A focused leadership structure that keeps operations efficient, service quality consistent, and client commitments on track across transportation and institutional supply engagements.
       </p>
     </div>
 
@@ -36,34 +36,23 @@
       </div>
     </div>
 
-    <div class="leadership-spotlight anim" data-delay="150">
-      <div class="leadership-copy">
-        <h3>{{ leadershipProfile.name }}</h3>
-        <span class="leadership-role">{{ leadershipProfile.role }}</span>
-        <p>{{ leadershipProfile.summary }}</p>
-      </div>
-      <div class="leadership-image-wrap">
-        <img [src]="leadershipProfile.image" [alt]="leadershipProfile.imageAlt">
-      </div>
-    </div>
-
-    <div class="org-chart anim" data-delay="220">
-      <div class="org-level org-top">
-        <div class="org-node org-director">
-          <span class="material-symbols-outlined">person</span>
-          <strong>{{ leadershipProfile.name }}</strong>
-          <span class="org-role">{{ leadershipProfile.role }}</span>
+    <div class="leadership-cards-grid anim" data-delay="150">
+      <article class="leadership-card" *ngFor="let profile of executiveProfiles; let index = index" [attr.data-delay]="180 + index * 80">
+        <div class="card-copy">
+          <span class="role-badge">{{ profile.designation }}</span>
+          <h3>{{ profile.name }}</h3>
+          <p>{{ profile.description }}</p>
         </div>
-      </div>
-      <div class="org-connector"></div>
-      <div class="org-level org-gms">
-        <div class="org-node" *ngFor="let gm of organizationLeads">
-          <span class="material-symbols-outlined">{{ gm.icon }}</span>
-          <strong>{{ gm.title }}</strong>
-          <span class="org-role">{{ gm.role }}</span>
-          <p class="org-focus">{{ gm.focus }}</p>
+        <div class="card-highlights">
+          <h4>Core Responsibilities</h4>
+          <ul>
+            <li *ngFor="let item of profile.highlights">
+              <span class="material-symbols-outlined">check_circle</span>
+              <span>{{ item }}</span>
+            </li>
+          </ul>
         </div>
-      </div>
+      </article>
     </div>
   </div>
 </section>
